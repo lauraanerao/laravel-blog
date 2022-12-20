@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,6 @@ Route::group(['prefix'=>'categorias'], function(){
 Route::group(['prefix'=>'posts'], function(){
    Route::resource('posts', PostController::class);
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
+
