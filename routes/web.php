@@ -32,3 +32,7 @@ Route::group(['prefix'=>'posts'], function(){
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
