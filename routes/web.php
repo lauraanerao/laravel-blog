@@ -26,7 +26,7 @@ Route::group(['prefix'=>'categorias'], function(){
     Route::delete('delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
 });
 
-Route::group(['prefix'=>'posts'], function(){
+Route::group(['prefix'=>'admin'], function(){
    Route::resource('posts', PostController::class);
 });
 
