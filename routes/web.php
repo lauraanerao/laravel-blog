@@ -16,17 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix'=>'categorias'], function(){
-    Route::get('', [CategoriaController::class, 'index'])->name('categoria.index');
-    Route::get('create',[CategoriaController::class, 'create'])->name('categoria.create');
-    Route::post('store', [CategoriaController::class, 'store'])->name('categoria.store');
-    Route::get('show/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
-    Route::get('edit/{categoria}', [CategoriaController::class, 'edit'])->name('categoria.edit');
-    Route::put('update/{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
-    Route::delete('delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
-});
 
 Route::group(['prefix'=>'admin'], function(){
+   Route::resource('categorias', CategoriaController::class);
    Route::resource('posts', PostController::class);
 });
 
