@@ -19,12 +19,14 @@
                 @endif
 
                 @if(session('sucesso'))
-                    {{ session('sucesso') }}
+                    <div class="alert alert-success text-center">
+                        {{ session('sucesso') }}
+                    </div>
                 @endif
 
                 <form method="post" action="{{ route('posts.store') }}">
                     @csrf
-                    <label for="category">Category</label>
+                    <label for="category">Categoria</label>
                     <select id="category" name="category_id" class="form-control">
                         <option value=""> Escolha a Categoria </option>
                         @foreach($categorias as $categoria)
@@ -33,12 +35,12 @@
                     </select>
                     <br>
 
-                    <label for="title">Title</label>
+                    <label for="title">Título</label>
                     <input required id="title" class="form-control" name="title" value="{{ old('title') }}">
 
                     <br>
 
-                    <label for="body">Description</label>
+                    <label for="body">Descrição</label>
                     <textarea required id="body" class="form-control" rows="8" name="body">{{ old('body') }}</textarea>
 
                     <br>
