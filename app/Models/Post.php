@@ -34,4 +34,16 @@ class Post extends Model
 
         return nl2br($this->body);
     }
+
+    public function usuario() {
+
+        return $this->belongsTo(User::class, 'user_id', 'id');
+
+    }
+
+    public function getCreatedAtAttribute($value) {
+
+        return date('d/m/Y H:i:s', strtotime($value));
+
+    }
 }

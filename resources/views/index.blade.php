@@ -15,14 +15,14 @@
 
                 @foreach($posts as $post)
                     <div class="post-preview">
-                        <a href="post.html">
+                        <a href="{{ route('post.show', $post->id) }}">
                             <h2 class="post-title">{{ $post->title }}</h2>
                             <h3 class="post-subtitle">{!! $post->descricaoPost(80) !!} </h3>
                         </a>
                         <p class="post-meta">
                             Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 24, 2022
+                            {{ $post->usuario->name }}
+                            on {{ $post->created_at }}
                         </p>
                     </div>
                 @endforeach
