@@ -29,4 +29,11 @@ class AdminPostController extends Controller
         Post::create($data);
         return back()->with('sucesso', 'Post cadastrado com sucesso!');
     }
+
+    public function destroy(Post $post) {
+
+       $post->delete();
+       return redirect(route('index'))->with('sucesso', 'Post excluído com sucesso!');
+
+    }
 }
