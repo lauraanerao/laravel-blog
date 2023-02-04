@@ -36,4 +36,16 @@ class AdminPostController extends Controller
        return redirect(route('index'))->with('sucesso', 'Post excluído com sucesso!');
 
     }
+
+    public function edit(Post $post) {
+
+        $categorias = Categoria::all();
+        return view("admin.posts.edit", compact("post","categorias"));
+    }
+
+    public function update(PostRequest $request, Post $post) {
+        $data = $request->validated();
+        $post->update($data);
+        return back()->with('sucesso', 'Post editado com sucesso!');
+    }
 }

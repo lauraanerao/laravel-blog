@@ -41,6 +41,10 @@ class Post extends Model
 
     }
 
+    public function categoria() {
+        return $this->belongsTo(Categoria::class, 'category_id', 'id');
+    }
+
     public function getCreatedAtAttribute($value) {
 
         return date('d/m/Y H:i:s', strtotime($value));

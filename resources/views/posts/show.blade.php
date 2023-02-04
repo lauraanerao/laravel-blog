@@ -90,6 +90,10 @@
 {{$post->title}}
 @endsection
 
+@section('header-desc')
+    {{ $post->categoria->nome }}
+@endsection
+
 @section('content')
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -108,6 +112,12 @@
                 @auth
                 <div class="box">
                     <a class="btn btn-danger btn-sm float-end" href="#popup1"> <i class="fa fa-trash"></i> Remover Post </a>
+
+                    <a href="{{ route("posts.edit", $post->id) }}">
+                        <button class="btn btn-primary btn-sm float-end" style="margin-right: 5px"><i class="fa fa-edit"></i> Editar</button>
+                    </a>
+
+
                 </div>
 
                 <div id="popup1" class="overlay">
