@@ -100,6 +100,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
 
                 <div class="post-preview">
+                    <img src="{{ asset("storage/" . $post->thumbnail) }}">
                     <p>{!! nl2br($post->body) !!}</p>
 
                     <p class="post-meta">

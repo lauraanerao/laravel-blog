@@ -24,8 +24,9 @@
                     </div>
                 @endif
 
-                <form method="post" action="{{ route('posts.store') }}">
+                <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
+                    <input type="file" name="thumbnail" class="form-control">
                     <label for="category">Categoria</label>
                     <select id="category" name="category_id" class="form-control">
                         <option value=""> Escolha a Categoria </option>

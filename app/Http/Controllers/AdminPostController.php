@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Str;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostController extends Controller
 {
@@ -14,6 +15,7 @@ class AdminPostController extends Controller
         $this->middleware("auth");
     }
     public function create() {
+
 
         $categorias = Categoria::all();
 
@@ -23,9 +25,13 @@ class AdminPostController extends Controller
 
     public function store(PostRequest $request) {
 
+        $path = $request->file('thumbnail')->store('avatars');
+
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($data['title']);
+        $data['thumbnail'] = $path;
+
         Post::create($data);
         return back()->with('sucesso', 'Post cadastrado com sucesso!');
     }
