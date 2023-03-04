@@ -1,0 +1,69 @@
+version: "3.3"
+services:
+
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    restart: always
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - proxy
+
+  laravel-blog:
+    container_name: laravel-blog
+    image: antonioanerao/laravel:9.47.0
+    restart: always
+    networks:
+      - proxy
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/laravel
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.laravel-glob.rule=Host(`blog.docker.localhost`)"
+      - "traefik.http.routers.laravel-glob.entrypoints=web"
+
+  mysql:
+    image: ubuntu/mysql:8.0-22.04_beta
+    container_name: "mysql"
+    restart: always
+    networks:
+      - proxy
+    environment:
+      MYSQL_DATABASE: laura
+      MYSQL_USER: laura
+      MYSQL_PASSWORD: laura
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: "phpmyadmin"
+    restart: always
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.docker.localhost`)"
+      - "traefik.http.routers.phpmyadmin.entrypoints=web"
+    environment:
+      - PMA_ARBITRARY=1
+
+volumes:
+  mysql:
+
+networks:
+  proxy:
