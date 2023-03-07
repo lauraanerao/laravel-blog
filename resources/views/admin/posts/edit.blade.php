@@ -25,6 +25,12 @@
                 @endif
                     @if($post->thumbnail)
                         <img src="{{ asset("storage/" . $post->thumbnail) }}">
+                        <form method="post" action="{{ route('admin.removerImagemPost', $post->id) }}">
+                            @csrf @method('patch')
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
                     @endif
                 <form method="post" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                     @csrf @method('patch')

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'admin'], function(){
    Route::resource('categorias', CategoriaController::class);
    Route::resource('posts', AdminPostController::class)->except('show');
+   Route::patch('posts/deletar-imagem/{post}', [AdminPostController::class, 'removerImagemPost'])->name("admin.removerImagemPost");
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');

@@ -42,8 +42,9 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post) {
 
-       $post->delete();
-       return redirect(route('index'))->with('sucesso', 'Post excluído com sucesso!');
+        Storage::delete($post->thumbnail);
+        $post->delete();
+        return redirect(route('index'))->with('sucesso', 'Post excluído com sucesso!');
 
     }
 
@@ -65,5 +66,12 @@ class AdminPostController extends Controller
         $post->update($data);
         return back()->with('sucesso', 'Post editado com sucesso!');
 
+    }
+
+    public function removerImagemPost(Post $post){
+        Storage::delete($post->thumbnail);
+        $post->thumbnail = null;
+        $post->save();
+        return back()->with('sucesso', 'Imagem removida com sucesso!');
     }
 }
