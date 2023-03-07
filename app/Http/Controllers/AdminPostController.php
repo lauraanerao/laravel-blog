@@ -57,6 +57,9 @@ class AdminPostController extends Controller
     public function update(PostRequest $request, Post $post) {
         $data = $request->validated();
         if($request->file('thumbnail')){
+            if($post->thumbnail){
+                Storage::delete($post->thumbnail);
+            }
             $path = $request->file('thumbnail')->store('posts');
             $data['thumbnail'] = $path;
         }
