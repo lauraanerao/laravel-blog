@@ -25,12 +25,16 @@ class AdminPostController extends Controller
 
     public function store(PostRequest $request) {
 
-        $path = $request->file('thumbnail')->store('avatars');
-
         $data = $request->validated();
+
+        if($request->file('thumbnail')){
+            $path = $request->file('thumbnail')->store('posts');
+            $data['thumbnail'] = $path;
+        }
+
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($data['title']);
-        $data['thumbnail'] = $path;
+
 
         Post::create($data);
         return back()->with('sucesso', 'Post cadastrado com sucesso!');
@@ -51,7 +55,15 @@ class AdminPostController extends Controller
 
     public function update(PostRequest $request, Post $post) {
         $data = $request->validated();
+        if($request->file('thumbnail')){
+            $path = $request->file('thumbnail')->store('posts');
+            $data['thumbnail'] = $path;
+        }
+        else{
+            $data['thumbnail'] = $post->thumbnail;
+        }
         $post->update($data);
         return back()->with('sucesso', 'Post editado com sucesso!');
+
     }
 }

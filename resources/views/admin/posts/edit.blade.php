@@ -23,9 +23,12 @@
                         {{ session('sucesso') }}
                     </div>
                 @endif
-
-                <form method="post" action="{{ route('posts.update', $post->id) }}">
+                    @if($post->thumbnail)
+                        <img src="{{ asset("storage/" . $post->thumbnail) }}">
+                    @endif
+                <form method="post" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                     @csrf @method('patch')
+                    <input type="file" name="thumbnail" class="form-control mt-3 mb-3">
                     <label for="category">Categoria</label>
                     <select id="category" name="category_id" class="form-control">
                         <option value=""> Escolha a Categoria </option>
